@@ -1,9 +1,25 @@
-.example-container {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: #eee;
-  }
-  
+.nav-bar{
+  background-color: #222223;
+  border-radius: 25px;
+  display: flex;
+}
+
+.flex-spacer{
+  flex-grow: 1;
+}
+
+.nav-bar-header{
+  flex-direction:row;
+  justify-content: flex-start;
+}
+
+.nav-bar-items {
+  justify-content: flex-end;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.nav-bar-button {
+  border-style: solid;
+  border-width:1px;
+}
