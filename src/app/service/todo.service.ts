@@ -1,9 +1,12 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';   
+import {FirebaseProvider} from 'angular-firebase';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class TodoService {
 
-  constructor() { }
+  constructor(private fb: FirebaseProvider) { }
+
 }
