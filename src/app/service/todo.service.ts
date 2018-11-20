@@ -9,4 +9,11 @@ export class TodoService {
 
   constructor(private fb: FirebaseProvider) { }
 
+  voegTodoToe(todo: string) {
+    this.fb.pushData('todo', todo)
+  }
+
+  haalTodosOp(){
+    this.fb.getData('todo')
+  }
 }
