@@ -1,19 +1,26 @@
-import { Injectable } from '@angular/core';   
-import {FirebaseProvider} from 'angular-firebase';
+import { Injectable } from '@angular/core';
+import { FirebaseProvider } from 'angular-firebase';
+import * as firebase from 'firebase'
+import { Todo } from '../model/todo'
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class TodoService {
+  database = firebase.database();
+  todos:Todo[];
 
-  constructor(private fb: FirebaseProvider) { }
+  constructor() { }
 
-  voegTodoToe(todo: string) {
-    this.fb.pushData('todo', todo)
+  voegTodoToe(todoGui: Todo) {
+    this.database.ref('/todo').push({
+      todo: todoGui.todo,
+      done: todoGui.done
+    });
   }
 
-  haalTodosOp(){
-    this.fb.getData('todo')
+  haalTodosOp() {
+    return this.database.ref('/todo').once('value');
   }
 }
