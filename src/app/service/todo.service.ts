@@ -9,7 +9,7 @@ import { Todo } from '../model/todo'
 })
 export class TodoService {
   database = firebase.database();
-  todos:Todo[];
+  todos:Todo[] = [];
 
   constructor() { }
 
@@ -21,6 +21,16 @@ export class TodoService {
   }
 
   haalTodosOp() {
-    return this.database.ref('/todo').once('value');
+  this.database.ref('/').once('child_added', (data) => {
+      data.forEach(element => {
+        this.todos.push(new Todo(element.key.valueOf(), element.child('todo').val(), element.child('done').val()))
+      })
+    }).then();
+    return this.todos;
+  }
+  
+  updateDone(todo:Todo){
+    this.database.ref('/todo/' + todo.id).update({ todo: todo.todo, done: !todo.done });
+
   }
 }
