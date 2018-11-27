@@ -35,4 +35,8 @@ export class TodoService {
     this.database.ref('/todo/' + todo.id).set({ todo: todo.todo, done: !todo.done })
       .then();
   }
+
+  verwijderTodo(todo:Todo) {
+    this.database.ref('/todo/' + todo.id).remove().then();
+  }
 }

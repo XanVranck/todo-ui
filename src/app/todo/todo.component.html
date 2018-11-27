@@ -1,5 +1,21 @@
 <form class="todo-input">
   <mat-form-field class="todo-input-item">
-    <input matInput placeholder="Todo" value="Nena doet de afwas">
+    <input matInput placeholder="Voeg een todo toe" (keydown.enter)="voegTodoToe($event.target.value)">
   </mat-form-field>
 </form>
+
+<div *ngFor="let todo of todos">
+  <mat-list class="list">
+    <mat-list-item *ngIf="!todo.done" class="list-item">
+      <mat-checkbox [checked]="todo.done" (change)="updateDone(todo)">{{todo.todo}}</mat-checkbox>
+    </mat-list-item>
+    <mat-list-item *ngIf="todo.done" class="list-item-crossed">
+      <mat-checkbox [checked]="todo.done" (change)="updateDone(todo)">{{todo.todo}}</mat-checkbox>
+    </mat-list-item>
+    <br>
+    <svg xmlns="http://www.w3.org/2000/svg" class="bin" width="24" height="24" viewBox="0 0 24 24" (click)="verwijderTodo(todo)">
+      <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" />
+      <path d="M0 0h24v24H0z" fill="none" /></svg>
+    <mat-divider></mat-divider>
+  </mat-list>
+</div>

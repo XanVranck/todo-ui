@@ -11,4 +11,30 @@
     width: 100%;
     color: 222223;
   }
+
+  .list-item{
+    float:left;    
+    min-width: 150px;
+    max-width: 400px;
+    height: auto;
+  }
+
+  .list-item-crossed{
+    float:left;
+    text-decoration: line-through;    
+    min-width: 150px;
+    max-width: 400px;
+    height: auto;
+  }
+
+.bin {
+  cursor: pointer;
+}
+
+  .list{
+    margin:auto;
+    max-width: 500px;
+    width: 450px;
+    height: auto;
+  }
   
