@@ -15,6 +15,7 @@ export class TodoService {
 
   voegTodoToe(todoGui: Todo) {
     this.database.ref('/todo').push({
+      owner: todoGui.owner, 
       todo: todoGui.todo,
       done: todoGui.done
     });
@@ -24,7 +25,7 @@ export class TodoService {
     this.todos = []
     this.database.ref('/').once('child_added', (data) => {
       data.forEach(element => {
-        this.todos.push(new Todo(element.key.valueOf(), element.child('todo').val(), element.child('done').val()))
+        this.todos.push(new Todo(element.key.valueOf(), element.child('owner').val(), element.child('todo').val(), element.child('done').val()))
       })
     }).then();
 
