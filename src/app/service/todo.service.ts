@@ -23,11 +23,11 @@ export class TodoService {
 
   haalTodosOp(): Todo[] {
     this.todos = []
-    this.database.ref('/').once('child_added', (data) => {
+    this.database.ref('/todo').on('value', (data) => {
       data.forEach(element => {
         this.todos.push(new Todo(element.key.valueOf(), element.child('owner').val(), element.child('todo').val(), element.child('done').val()))
       })
-    }).then();
+    });
 
     return this.todos;
   }
