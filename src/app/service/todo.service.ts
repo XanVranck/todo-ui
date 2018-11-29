@@ -29,11 +29,16 @@ export class TodoService {
       })
     });
 
+    this.database.ref('/todo').on('child_changed', (data) => {
+      data.forEach(element => {
+        this.todos.push(new Todo(element.key.valueOf(), element.child('owner').val(), element.child('todo').val(), element.child('done').val()))
+      })
+    });
     return this.todos;
   }
 
   updateDone(todo: Todo) {
-    this.database.ref('/todo/' + todo.id).set({ todo: todo.todo, done: !todo.done })
+    this.database.ref('/todo/' + todo.id).set({ owner: todo.owner, todo: todo.todo, done: !todo.done })
       .then();
   }
 
