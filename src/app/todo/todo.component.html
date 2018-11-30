@@ -1,11 +1,19 @@
-<form class="todo-input">
-  <mat-form-field class="todo-input-item">
-    <input matInput placeholder="Voeg een todo toe" (keydown.enter)="voegTodoToe($event.target.value)">
-  </mat-form-field>
-</form>
+<div class="button-group">
+  <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+    <mat-button-toggle value="Xan" (click)='changeOwner("Xan")'>Xan</mat-button-toggle>
+    <mat-button-toggle value="Nena" (click)='changeOwner("Nena")'>Nena</mat-button-toggle>
+    <mat-button-toggle value="Beide" (click)='changeOwner("Beide")'>Beide</mat-button-toggle>
+  </mat-button-toggle-group>
+</div>
 
-<div *ngFor="let todo of todos">
-  <mat-list class="list">
+<form autocomplete="off" *ngIf="showTodoForm()" class="todo-input">
+  <mat-form-field class="todo-input-item">
+    <input matInput #inputTodo placeholder="Voeg een todo toe">
+  </mat-form-field>
+  <button (click)='voegTodoToe(inputTodo.value)' (click)="inputTodo.value=''" mat-button>Voeg todo toe</button>
+</form>
+<div *ngFor="let todo of todosForAnOwner">
+  <mat-list *ngIf="showTodoForm()"  class="list">
     <mat-list-item *ngIf="!todo.done" class="list-item">
       <mat-checkbox [checked]="todo.done" (change)="updateDone(todo)">{{todo.todo}}</mat-checkbox>
     </mat-list-item>

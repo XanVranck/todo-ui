@@ -11,25 +11,48 @@ import * as firebase from 'firebase'
 export class TodoComponent implements OnInit {
 
   todos: Todo[] = [];
+  todosForAnOwner: Todo [] = [];
+  owner:string = "";
 
   voegTodoToe(todo: string) {
-    this.todoService.voegTodoToe(new Todo(null, todo, false));
+    this.todoService.voegTodoToe(new Todo(null, this.owner, todo, false));
+    this.haalTodosOp()
+    return false;
   }
 
   constructor(private todoService: TodoService) { 
   }
 
   ngOnInit() {
-    this.todos = this.todoService.haalTodosOp();
+    this.haalTodosOp();
   }
   
+  haalTodosOp(){
+    this.todos = this.todoService.haalTodosOp();
+    this.filterTodosPerOwner()
+  }
+
   updateDone(todo:Todo){
     this.todoService.updateDone(todo);
-    this.todos = this.todoService.haalTodosOp()
+    this.haalTodosOp()
+    return true;
   }
   
   verwijderTodo(todo:Todo){
     this.todoService.verwijderTodo(todo)
-    this.todos = this.todoService.haalTodosOp()
+    this.haalTodosOp();
+  }
+
+  changeOwner(owner:string){
+    this.owner = owner;
+    this.filterTodosPerOwner();
+  }
+
+  filterTodosPerOwner(){
+    this.todosForAnOwner = this.todos.filter(todo => todo.owner === this.owner);
+  }
+
+  showTodoForm():boolean{
+    return this.owner !== '';
   }
 }
