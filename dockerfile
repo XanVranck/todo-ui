@@ -9,13 +9,10 @@ COPY . /dist
 
 # Install any needed packages specified in requirements.txt
 RUN npm install
-RUN npm install -g @angular/cli@1.7.1
+RUN npm install -g @angular/cli@7.1.1
 
 # Make port 80 available to the world outside this container
 EXPOSE 4200
-
-# Define environment variable
-ENV NAME World
 
 # Run app.py when the container launches
 CMD ng serve
